@@ -5,34 +5,13 @@
 
 ## 0. Outline
 
-## 1. Pre-Requisites
+## 1. Windows
 
-### 1.1. Windows
+### 1.1. VirtualBox
 
-#### 1.1.1. VirtualBox
-
-Download VirtualBox from their [official website]().
+Download VirtualBox from their [official website](https://www.virtualbox.org/wiki/Downloads).
 
 ![[virtualbox-windows.png]]
-
-#### 1.1.2. Kali Linux Pre-Built VirtualBox Image
-
-Download the Kali Linux Pre-Built VirtualBox Image from Kali Linux [official website](https://www.kali.org/get-kali/#kali-virtual-machines)
-
-![[kali-linux-prebuilt-image-windows.png]]
-
-Right-click on the `.7z` file and extract it:
-*(Note: If extraction fails, retry with [7-Zip](https://www.7-zip.org/))*
-
-![[kali-linux-extract-7z-file.png]]
-### 1.2. MacOS
-
-TBA
-## 2. Installation
-
-### 2.1. Windows
-
-#### 2.1.1. VirtualBox Setup
 
 Locate the VirtualBox installer in your File Explorer and double-click on it to launch:
 
@@ -70,7 +49,16 @@ When the installation completes, you should see the homepage:
 
 ![[virtualbox-installer-page-8.png]]
 
-#### 2.1.2. Import Kali Linux Pre-Built Image
+### 1.2. Kali Linux Pre-Built VirtualBox Image
+
+Download the Kali Linux Pre-Built VirtualBox Image from Kali Linux [official website](https://www.kali.org/get-kali/#kali-virtual-machines)
+
+![[kali-linux-prebuilt-image-windows.png]]
+
+Right-click on the `.7z` file and extract it:
+*(Note: If extraction fails, retry with [7-Zip](https://www.7-zip.org/))*
+
+![[kali-linux-extract-7z-file.png]]
 
 Click on the plus icon in VirtualBox:
 
@@ -89,5 +77,136 @@ Click on the `start` button to launch Kali Linux:
 ![[kali-linux-start-button.png]]
 
 Login with username `kali` and password `kali`.
-### 2.2. Mac
 
+## 2. Mac
+
+For our club, we will be using VirtualBox to standardise the virtual platform for both Windows and MacOS users. However, other options such as VMWare and UTM exist. If you wish to use those platforms instead, you may follow the official guides by OffSec:
+
+VMWare: https://www.kali.org/docs/virtualization/install-vmware-guest-vm/
+UTM: https://www.kali.org/docs/virtualization/install-utm-guest-vm/
+
+### 2.1. VirtualBox
+
+Download VirtualBox from their [official website](https://www.virtualbox.org/wiki/Downloads).
+
+![[virtualbox-windows.png]]
+
+Locate VirtualBox in your downloads and install it (Screenshots TBA)
+
+### 2.2. Kali Linux ISO
+
+Download the Kali Linux ISO from Kali Linux [official website](https://www.kali.org/get-kali/#kali-installer-images)
+
+![[kali-installer-mac.png]]
+
+Click on the `new` button to create a new vm:
+
+![[virtualbox-open.png]]
+In the `VM Name` field, type `kali`:
+
+![[photo_6152344947496438371_y.jpg]]
+
+Under `ISO Image`, click on the dropdown button and open your Finder. Locate the downloaded Kali Linux iso image from earlier and click `open`:
+
+![[photo_6152344947496438372_y.jpg]]
+
+Leave the rest of the fields as it is and click on `next`. For the following options, set it as following:
+- `Base Memory`: 4096 MB
+- `Number of CPUs`: 2
+- `Disk Size`: 80.00 GB
+
+![[photo_6152344947496438373_y.jpg]]
+
+![[photo_6152344947496438374_y (1).jpg]]
+
+Click on `Next` and then `Finish`.
+
+![[photo_6152344947496438375_y.jpg]]
+
+Click on the `Settings` button.
+
+![[photo_6152344947496438376_y.jpg]]
+
+Under `Expert` > `Display` > `Scale Factor`, set it to `300%`. Click on `OK` to save it:
+ ![[photo_6152344947496438377_y.jpg]]
+
+Click on the `Start` button:
+
+![[photo_6152344947496438376_y.jpg]]
+
+In the installation page, press `enter`:
+
+![[photo_6152344947496438367_x 1.jpg]]
+
+Select `English` and press `enter`:
+
+![[photo_6152344947496438351_x.jpg]]
+
+Select `United States` and press `enter`:
+
+![[photo_6152344947496438352_x.jpg]]
+
+Select `American English` and press `Enter`:
+
+![[photo_6152344947496438353_x.jpg]]
+
+Under hostname, type `Kali` and press `Enter`:
+
+![[photo_6152344947496438354_x.jpg]]
+
+Leave the domain name field empty, press `Enter`:
+
+![[photo_6152344947496438355_x.jpg]]
+
+For full name, type `kali` and press `Enter`:
+
+![[photo_6152344947496438356_x.jpg]]
+
+For username, type `kali` and press `Enter`:
+
+![[photo_6152344947496438357_x.jpg]]
+
+For password, type `kali` and press `Enter`:
+
+![[photo_6152344947496438358_x.jpg]]
+
+Retype `kali` and press `Enter`:
+
+![[photo_6152344947496438359_x.jpg]]
+
+For time zone, select `Eastern` and press `Enter`:
+![[photo_6152344947496438360_x.jpg]]
+
+For disk partitions, select `use entire disk` and press `Enter`:
+
+![[photo_6152344947496438361_x.jpg]]
+
+For disk selection, select `VBOX HARDDISK` and press `Enter`:
+
+![[photo_6152344947496438362_x.jpg]]
+
+For partitioning scheme, select `All files in one partition` and press `Enter`:
+
+![[photo_6152344947496438363_x.jpg]]
+
+Select Finish partitioning and press `Enter`:
+
+![[photo_6152344947496438364_x.jpg]]
+
+Select `Yes` and press `Enter`:
+
+![[photo_6152344947496438365_x.jpg]]
+
+For software selection, leave the default options and press `Enter`:
+
+![[photo_6152344947496438366_x.jpg]]
+
+When installation completes, press `Enter`:
+
+![[photo_6152344947496438368_x.jpg]]
+
+Your Kali VM should start booting:
+
+![[photo_6152344947496438369_y.jpg]]
+
+When brought to the installation page, enter your credentials `kali : kali`.
