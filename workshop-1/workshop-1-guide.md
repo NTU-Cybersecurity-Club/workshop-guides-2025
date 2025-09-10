@@ -1,7 +1,7 @@
 # Workshop 1 Guide (Kali Linux Installation)
 
 *Author: Tay Jovan*  
-*Last Updated: 2025/09/08*
+*Last Updated: 2025/09/10*
 
 ## 0. Outline
 

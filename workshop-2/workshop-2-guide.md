@@ -1,32 +1,44 @@
 
 # Workshop 2 Guide (Kali Linux Walkthrough & Networking)
 
-*Author: Tay Jovan*
-*Last update: 2025/09/08*
+*Author: Tay Jovan*  
+*Last updated: 2025/09/10*
 
 ## 0. Outline
+
+- [1. Kali Linux Basics](#1-kali-linux-basics)
+- [2. Basic Commands](#2-basic-commands)
+- [3. Kali Tweaks](#3-kali-tweaks)
+- [4. Cyber Kill Chain](#4-cyber-kill-chain)
+- [5. Networking Tools](#5-networking-tools)
+  - [5.1. Nmap](#51-nmap)
+  - [5.2. Analysing Network Traffic](#52-analysing-network-traffic)
+    - [5.2.1. Tcpdump](#521-tcpdump)
+    - [5.2.2. Wireshark](#522-wireshark)
+- [6. References](#6-references)
 
 ## 1. Kali Linux Basics
 
 Login in to Kali Linux with the default credentials `kali : kali`:
 
-![[Pasted image 20250909183341.png]]
+
+![](workshop-2-images/Pasted%20image%2020250909183341.png)
 
 To open your terminal, either click on the terminal icon or use the keyboard shortcut `ctrl + alt + T`:
 
-![[terminal.png]]
+![](workshop-2-images/terminal.png)
 
-![[{3A4BD218-49CA-43CF-9432-9A6594ED4E3C}.png]]
+![](workshop-2-images/{3A4BD218-49CA-43CF-9432-9A6594ED4E3C}.png)
 
 To access your terminal settings, go to `File > Preferences`:
 
-![[{4BA8A17C-B128-4B91-824D-11296E148FAD}.png]]
+![](workshop-2-images/{4BA8A17C-B128-4B91-824D-11296E148FAD}.png)
 
-![[settings.png]]
+![](workshop-2-images/settings.png)
 
 To view keyboard shortcuts, click on `Shortcuts`:
 
-![[shortcuts.png]]
+![](workshop-2-images/shortcuts.png)
 
 Common shortcuts:
 - New tab: `Ctrl + Shift + T`
@@ -38,7 +50,7 @@ Common shortcuts:
 - Move between panes: `alt + arrow keys`
 - Close pane: `Ctrl + Shift + E`
 
-## 1. Basic Commands
+## 2. Basic Commands
 
 To check which directory you are currently in:
 
@@ -72,7 +84,7 @@ cd
 
 If we don't specify a directory, by default the system will return us to our home directory (`/home/$USER`).
 
-![[directory-diagram.png]]
+![](workshop-2-images/directory-diagram.png)
 
 To change to the parent directory:
 
@@ -131,9 +143,9 @@ To run kali tweaks:
 kali-tweaks
 ```
 
-![[{80FEC4B9-3C64-4B23-9262-FCCA1ECF1DC6}.png]]
+![](workshop-2-images/{80FEC4B9-3C64-4B23-9262-FCCA1ECF1DC6}.png)
 
-## 3. Cyber Kill Chain
+## 4. Cyber Kill Chain
 
 The seven steps of the Cyber Kill Chain is as follows ([Lockheed Martin](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html)):
 - **Reconnaissance**: This is the stage we are covering today. This includes both active and passive reconnaissance, where you are gathering information about the target.
@@ -144,10 +156,11 @@ The seven steps of the Cyber Kill Chain is as follows ([Lockheed Martin](https:/
 - **Command & Control**: The compromised system establishes a communication channel with the attacker’s server to receive instructions.
 - **Action on Objectives**: achieves their goals, such as data theft, ransomware deployment, system sabotage, or espionage.
 
-![[Pasted image 20250910123908.png]]
-## 4. Networking Tools
+![](workshop-2-images/Pasted%20image%2020250910123908.png
+)
+## 5. Networking Tools
 
-### 3.1. Nmap
+### 5.1. Nmap
 
 
 > Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. ([Wikipedia](https://en.wikipedia.org/wiki/Nmap))
@@ -251,7 +264,7 @@ Nmap done: 1 IP address (1 host up) scanned in 1369.31 seconds
 
 Without root permissions (`sudo`), `nmap` performs TCP scans (`-sT`) instead of the default SYN scans (`-sS`). The difference between the 2 scans lie mainly with the amount of traffic generated. TCP scans forms a full three-way TCP handshake and can be easily detected by modern IDS/IPS solutions. A SYN scan on the other hand only sends the `syn` packet without establishing the handshake.
 
-![[tcp-three-way-handshake.png]]
+![](workshop-2-images/tcp-three-way-handshake.png)
 
 To perform a SYN scan, we will run the command as root. We can see the difference by tracing the packets via `--packet-trace`:
 
@@ -442,12 +455,150 @@ sudo nmap $IP -p <open_ports> -A -vv -oA enum/targeted-tcp-ports
 ```
 
 - `-A`: OS detection (`-O`), version detection (`-sV`), script scanning (`-sC`) and traceroute (`--traceroute`)
-### 3.2. Netcat
 
-##  5. Analysing Network Traffic
-### 5.1. Tcpdump
+### 5.2. Analysing Network Traffic
 
-### 5.2. Wireshark
+#### 5.2.1. Tcpdump
 
+To capture network traffic, we will use a command-line packet analyser `tcpdump` [tcpdump](https://www.tcpdump.org/) 
 
+To begin capturing network traffic:
 
+```
+sudo tcpdump
+```
+
+To specify interface to listen on, we can use the `-i` flag:
+
+```
+sudo tcpdump -i eth0
+```
+
+To specify a host, we use the `host` flag:
+
+```
+sudo tcpdump host scanme.nmap.org
+```
+
+To save the traffic to a `.pcap` file for further analysis (e.g. Wireshark), we use the `-w` flag:
+
+```
+sudo tcpdump host scanme.nmap.org -w captured-packets.pcap
+```
+
+#### 5.2.2. Wireshark
+
+Wireshark is a graphical packet analyser. It has a built in sorting and filtering function for analysis on traffic.
+
+To open wireshark, click on the top left icon in Kali Linux:
+
+![](workshop-2-images/open-applications-view.png)
+
+Search for wireshark and click on the application:
+
+![](workshop-2-images/wireshark-file-explorer.png)
+
+You should see the wireshark homepage:
+
+![](workshop-2-images/{6BA6FE1E-B38D-4C98-A685-4F9E70DD236C}.png)
+
+To open a `.pcap` file, click on `file` > `open` or use the keyboard shortcut `ctrl + o`:
+
+![](workshop-2-images/open-pcap.png)
+
+Locate your `.pcap` file in the file explorer:
+
+![](workshop-2-images/pcap-file-explorer.png)
+
+The `.pcap` file should now be open:
+
+![](workshop-2-images/{A798CFE9-583C-418C-80A8-469ED3ACEE61}.png)
+
+![](workshop-2-images/wireshark-annotate.png)
+
+To understand packet headers, we need to understand the network layers that it corresponds to:
+- **Ethernet > Data Link Layer**: sender/receiver in local network
+- **IP > Network Layer**: routing across networks
+- **Transport (TCP/UDP/ICMP) > Transport Layer**: data delivery between applications on different devices (ports)
+- **Application (HTTP/DNS/TLS) > Application Layer**: application specific services (web browsing)
+- **Payload (Data)**: actual data that is being delivered
+
+![](workshop-2-images/Pasted%20image%2020250910152155.png
+)
+
+Wireshark display filters allow to control the type of packets are shown in the packet section. Common filters include:
+- `ip.addr == 192.168.1.10`: Show packets **from or to** this IP
+- `ip.src == 192.168.1.10`: Show packets **from** this IP
+- `ip.dst == 192.168.1.10`: Show packets **to** this IP
+- `tcp.port == 443`: Show packets using TCP port 443 (HTTPS)
+- `udp.port == 53`: Show UDP DNS packets
+- `http`: Show only HTTP packets
+- `dns`: Show only DNS packets
+- `tcp.flags.syn == 1 and tcp.flags.ack == 0`: Show **SYN packets** (start of TCP connections)
+- `frame.len > 1000`: Show packets larger than 1000 bytes
+- `eth.addr == aa:bb:cc:dd:ee:ff`: Filter by MAC address
+
+After performing a nmap scan on `scanme.nmap.org`, let's use the Wireshark's display filters to get a deeper look.
+
+To find `scanme.nmap.org` IP address:
+
+```
+dns.qry.name == scanme.nmap.org
+```
+
+```
+Frame 4: 102 bytes on wire (816 bits), 102 bytes captured (816 bits)
+Ethernet II, Src: 0e:6a:c4:d1:9d:64 (0e:6a:c4:d1:9d:64), Dst: PCSSystemtec_d1:f8:5d (08:00:27:d1:f8:5d)
+Internet Protocol Version 4, Src: 1.1.1.1, Dst: 172.20.10.9
+User Datagram Protocol, Src Port: 53, Dst Port: 39563
+Domain Name System (response)
+    Transaction ID: 0x7316
+    Flags: 0x8180 Standard query response, No error
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 0
+    Additional RRs: 1
+    Queries
+    Answers
+        scanme.nmap.org: type A, class IN, addr 45.33.32.156
+    Additional records
+    [Request In: 1]
+    [Time: 0.050835000 seconds]
+
+```
+
+To see all packets exchange with `45.33.32.156`:
+
+```
+ip.addr == 45.33.32.156
+```
+
+![](workshop-2-images/{D9E9095C-EC28-42C6-B7BB-035865D7434D}.png)
+
+To see only TCP packets exchange with `45.33.32.156`:
+
+```
+ip.addr == 45.33.32.156 and tcp
+```
+
+![](workshop-2-images/{717C56E6-E94A-4C7C-A66C-06E050D51300}.png)
+
+To see TCP packets exchange with `45.33.32.156` on port `21`:
+
+```
+ip.addr == 45.33.32.156 and tcp.port == 21
+```
+
+![](workshop-2-images/{C51C2D51-FD07-4C65-B020-9F05AE1F9FC9}.png)
+
+## 6. References
+
+- https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html
+- https://studycorgi.com/fundamentals-of-networking/
+- https://techofide.com/blogs/how-to-use-wireshark-a-full-wireshark-tutorial-techofide/
+- https://en.wikipedia.org/wiki/Wireshark
+- https://www.tcpdump.org/
+- https://www.geeksforgeeks.org/linux-unix/tcpdump-command-in-linux-with-examples/
+- https://academy.hackthebox.com
+- https://www.wireshark.org/download.html
+- https://www.kali.org/ 
